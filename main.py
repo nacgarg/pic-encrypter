@@ -13,6 +13,7 @@ def valid_file(param):
 parser = argparse.ArgumentParser(description='Encrypt and decrypt messages and hide them in an image.')
 parser.add_argument('-i', dest="image", type=valid_file, metavar="image", help='Location of image you wish to decrypt or encrypt to.', required=True)
 parser.add_argument('-m', dest="message", metavar="message", help='Message you want to encrypt.', default="check_string_for_empty")
+parser.add_argument('-p', dest="password", metavar="password", help='Password (for decryption)')
 args = parser.parse_args()
 crypt = Encrypter()
 
@@ -43,15 +44,16 @@ def encrypt():
 		x+=3
 		counter += 1
 	im.save(args.image)
-	with open(args.image, "a") as f:
-		f.write("\n" + pwd)
+	print "Here's your password for decryption" +
+#	with open(args.image, "a") as f:
+#		f.write("\n" + pwd)
 
 def decrypt():
 	with open(args.image) as fh:
 		for line in fh:
 			pass
 		last = line
-	pwd = last
+	pwd = args.password
 	im = Image.open(args.image)
 	pix = im.load()
 	encrypted = ""
