@@ -63,7 +63,7 @@ def decrypt():
 			else:
 				notdone = False
 		i+=1
-	print "Done! Here's the message:\n" + crypt.decrypt(encrypted2, pwd)
+	print "Done! Here's the message:\n" + crypt.decrypt(encrypted, pwd)
 
 if (args.message == "check_string_for_empty"):
 	print "You did not specify a message, so I am going to decrypt."
