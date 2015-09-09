@@ -2,6 +2,7 @@ from PIL import Image
 from encrypter import Encrypter
 import argparse
 import os
+import random
 
 def valid_file(param):
     base, ext = os.path.splitext(param)
@@ -19,7 +20,7 @@ crypt = Encrypter()
 
 
 def encrypt():
-	im = Image.open("bg.jpg")
+	im = Image.open("images/"+str(random.randint(0, 5))+".jpg")
 	pix = im.load()
 
 	encrypted, pwd = crypt.encrypt(args.message, 10)
