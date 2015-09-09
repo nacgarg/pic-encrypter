@@ -4,8 +4,7 @@ import random
 
 class Encrypter():
 	def __init__(self):
-		print("Encrypter initialized.")
-
+		pass
 	def decrypt(self, string, pwd):
 		pwd = pwd.split('.')
 		iters = int(pwd[0], 16) / 3
