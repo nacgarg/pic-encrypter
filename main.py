@@ -44,7 +44,7 @@ def encrypt():
 		x+=3
 		counter += 1
 	im.save(args.image)
-	print "Here's your password for decryption" + pwd
+	print "Here's your password for decryption " + pwd
 #	with open(args.image, "a") as f:
 #		f.write("\n" + pwd)
 
