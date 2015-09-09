@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+
 from PIL import Image
-from encrypter import Encrypter
+try:
+    from encrypted import Encrypter
+except ImportError:
+    pass
 import argparse
 import os
 import random
