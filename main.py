@@ -29,6 +29,8 @@ def encrypt():
 	im = Image.open("pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
 	pix = im.load()
 
+	numArray = []
+
 	encrypted, pwd = crypt.encrypt(args.message, random.randint(1, 30))
 	x=0
 	seed = pwd.split('.')[0]
@@ -51,6 +53,13 @@ def encrypt():
 			b = ord(encrypted[x+2])
 #		print (r, g, b)
 		i, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
+		while i in numArray:
+			i = random.randint(0, im.size[0]-1)
+		while y in numArray:
+			y = random.randint(0, im.size[1]-1)
+		numArray.append(i)
+		numArray.append(y)
+
 		pix[i, y] = (r, g, b)
 		x+=3
 	im.save(args.image)
@@ -61,6 +70,7 @@ def encrypt():
 def decrypt():
 	pwd = args.password
 	seed = pwd.split('.')[0]
+	numArray = []
 	random.seed(seed)
 	im = Image.open(args.image)
 	pix = im.load()
@@ -68,6 +78,12 @@ def decrypt():
 	notdone = True
 	while notdone:
 		x, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
+		while x in numArray:
+			x = random.randint(0, im.size[0]-1)
+		while y in numArray:
+			y = random.randint(0, im.size[1]-1)
+		numArray.append(i)
+		numArray.append(y)
 		for i in range(0, 3):
 			if (pix[x, y][i] != 0):
 				encrypted += chr(pix[x, y][i])
