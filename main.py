@@ -49,7 +49,7 @@ def encrypt():
 			b = 0
 		else: 
 			b = ord(encrypted[x+2])
-		print (r, g, b)
+#		print (r, g, b)
 		i, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
 		pix[i, y] = (r, g, b)
 		x+=3
