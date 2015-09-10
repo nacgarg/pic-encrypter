@@ -2,7 +2,7 @@
 
 from PIL import Image
 try:
-    from encrypted import Encrypter
+    from encrypter import Encrypter
 except ImportError:
     pass
 import argparse
@@ -59,10 +59,6 @@ def encrypt():
 #		f.write("\n" + pwd)
 
 def decrypt():
-	with open(args.image) as fh:
-		for line in fh:
-			pass
-		last = line
 	pwd = args.password
 	seed = pwd.split('.')[0]
 	random.seed(seed)

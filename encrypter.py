@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from binascii import hexlify, unhexlify
 from copy import copy
 import random
