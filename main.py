@@ -34,7 +34,7 @@ def encrypt():
 		encrypted, pwd = crypt.encrypt(open(args.message).read(), random.randint(1, 30))
 	else:
 		encrypted, pwd = crypt.encrypt(args.message, random.randint(1, 30))
-		
+
 	x=0
 	seed = pwd.split('.')[0]
 	random.seed(seed)
@@ -56,12 +56,10 @@ def encrypt():
 			b = ord(encrypted[x+2])
 #		print (r, g, b)
 		i, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
-		while i in numArray:
+		while (i, y) in numArray:
 			i = random.randint(0, im.size[0]-1)
-		while y in numArray:
 			y = random.randint(0, im.size[1]-1)
-		numArray.append(i)
-		numArray.append(y)
+		numArray.append((i, y))
 
 		pix[i, y] = (r, g, b)
 		x+=3
@@ -81,12 +79,10 @@ def decrypt():
 	notdone = True
 	while notdone:
 		x, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
-		while x in numArray:
+		while (x, y) in numArray:
 			x = random.randint(0, im.size[0]-1)
-		while y in numArray:
 			y = random.randint(0, im.size[1]-1)
-		numArray.append(i)
-		numArray.append(y)
+		numArray.append((x, y))
 		for i in range(0, 3):
 			if (pix[x, y][i] != 0):
 				encrypted += chr(pix[x, y][i])

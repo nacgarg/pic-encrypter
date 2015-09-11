@@ -3,6 +3,7 @@
 from binascii import hexlify, unhexlify
 from copy import copy
 import random
+import sys
 
 class Encrypter():
 	def __init__(self):
@@ -54,10 +55,11 @@ class Encrypter():
 				place -= len(tape)
 			if place <= -1:
 				place += len(tape)
-			 print('.'.rjust((60 * i) / iters))
-			 sys.stdout.write("\033[F")
+			print('.'.rjust((60 * i) / iters))
+			sys.stdout.write("\033[F")
 		tape = ''.join(tape)
 		nData = [tape[i:i+7].zfill(8) for i in range(0, len(tape), 7)]
+		print "Done with Turing!"
 		return [nData, place, state]
 	def _unTuring(self, t, st, pl, n):
 		tp = copy(t)
@@ -72,7 +74,7 @@ class Encrypter():
 			elif st == '0' and tp[pl] == '1':
 				st = '1'
 				tp[pl] = '0'
-			 print('.'.rjust((60 * x) / n))
-			 sys.stdout.write("\033[F")
+			print('.'.rjust((60 * x) / n))
+			sys.stdout.write("\033[F")
 		tp = ''.join(tp)
 		return [tp[i:i+7].zfill(8) for i in range(0, len(tp), 7)]
