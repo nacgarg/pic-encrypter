@@ -31,9 +31,11 @@ def encrypt():
 	numArray = []
 
 	if os.path.isfile(args.message):
-		encrypted, pwd = crypt.encrypt(open(args.message).read(), random.randint(1, 30))
+		msg = open(args.message).read()
+		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6))
 	else:
-		encrypted, pwd = crypt.encrypt(args.message, random.randint(1, 30))
+		msg = args.message
+		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6))
 
 	x=0
 	seed = pwd.split('.')[0]

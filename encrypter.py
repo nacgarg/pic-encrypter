@@ -59,10 +59,12 @@ class Encrypter():
 			sys.stdout.write("\033[F")
 		tape = ''.join(tape)
 		nData = [tape[i:i+7].zfill(8) for i in range(0, len(tape), 7)]
-		print "Done with Turing!"
+#		print "Done with Turing!"
 		return [nData, place, state]
 	def _unTuring(self, t, st, pl, n):
 		tp = copy(t)
+#		print len(tp)
+#		print pl
 		for x in range(n):
 			pl -= 1
 			if pl == -1:
