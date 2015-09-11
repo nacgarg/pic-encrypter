@@ -28,11 +28,13 @@ crypt = Encrypter()
 def encrypt():
 	im = Image.open("pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
 	pix = im.load()
-	if os.path.isfile(args.message):
-		args.message = open(args.message).read()
 	numArray = []
 
-	encrypted, pwd = crypt.encrypt(args.message, random.randint(1, 30))
+	if os.path.isfile(args.message):
+		encrypted, pwd = crypt.encrypt(open(args.message).read(), random.randint(1, 30))
+	else:
+		encrypted, pwd = crypt.encrypt(args.message, random.randint(1, 30))
+		
 	x=0
 	seed = pwd.split('.')[0]
 	random.seed(seed)
