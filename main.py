@@ -26,16 +26,16 @@ crypt = Encrypter()
 
 
 def encrypt():
-	im = Image.open("pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
+	im = Image.open("./pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
 	pix = im.load()
 	numArray = []
 
 	if os.path.isfile(args.message):
 		msg = open(args.message).read()
-		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6))
+		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6) + 200000)
 	else:
 		msg = args.message
-		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6))
+		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6) + 200000)
 
 	x=0
 	seed = pwd.split('.')[0]
