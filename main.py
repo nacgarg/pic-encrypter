@@ -26,7 +26,7 @@ crypt = Encrypter()
 
 
 def encrypt():
-	im = Image.open("./pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
+	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
 	pix = im.load()
 	numArray = []
 
