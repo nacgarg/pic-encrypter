@@ -22,9 +22,6 @@ parser.add_argument('-p', dest="password", metavar="password", help='Password (f
 args = parser.parse_args()
 crypt = Encrypter()
 
-
-
-
 def encrypt():
 	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
 	pix = im.load()
@@ -38,7 +35,7 @@ def encrypt():
 		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6) + 200000)
 
 	x=0
-	seed = pwd.split('.')[0]
+	seed = ''.join(pwd.split('.'))
 	random.seed(seed)
 	if (len(encrypted) % 3 == 0):
 		encrypted+=chr(0)
@@ -55,14 +52,12 @@ def encrypt():
 			print "zero"
 			b = 0
 		else: 
-			b = ord(encrypted[x+2])
-#		print (r, g, b)
+			b = ord(encrypted[x+2]) 
 		i, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
 		while (i, y) in numArray:
 			i = random.randint(0, im.size[0]-1)
 			y = random.randint(0, im.size[1]-1)
 		numArray.append((i, y))
-
 		pix[i, y] = (r, g, b)
 		x+=3
 	im.save(args.image)
@@ -72,7 +67,7 @@ def encrypt():
 
 def decrypt():
 	pwd = args.password
-	seed = pwd.split('.')[0]
+	seed = ''.join(pwd.split('.'))
 	numArray = []
 	random.seed(seed)
 	im = Image.open(args.image)

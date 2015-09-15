@@ -8,6 +8,7 @@ import sys
 class Encrypter():
 	def __init__(self):
 		pass
+
 	def decrypt(self, string, pwd):
 		pwd = pwd.split('.')
 		iters = int(pwd[0], 16) / 3
@@ -58,13 +59,12 @@ class Encrypter():
 			print('.'.rjust((60 * i) / iters))
 			sys.stdout.write("\033[F")
 		tape = ''.join(tape)
+#		print "from doTuring: " + str([len(tape), place, state])
 		nData = [tape[i:i+7].zfill(8) for i in range(0, len(tape), 7)]
-#		print "Done with Turing!"
 		return [nData, place, state]
+
 	def _unTuring(self, t, st, pl, n):
 		tp = copy(t)
-#		print len(tp)
-#		print pl
 		for x in range(n):
 			pl -= 1
 			if pl == -1:
