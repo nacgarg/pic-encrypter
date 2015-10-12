@@ -7,7 +7,7 @@ except ImportError:
     pass
 import argparse
 import os
-import random
+from random import seed, randint
 
 def valid_file(param):
     base, ext = os.path.splitext(param)
@@ -23,20 +23,19 @@ args = parser.parse_args()
 crypt = Encrypter()
 
 def encrypt():
-	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(random.randint(0, 5))+".jpg")
+	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(randint(0, 5))+".jpg")
 	pix = im.load()
 	numArray = []
 
 	if os.path.isfile(args.message):
 		msg = open(args.message).read()
-		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6) + 200000)
 	else:
 		msg = args.message
-		encrypted, pwd = crypt.encrypt(msg, random.randint(len(msg) * 3, len(msg) * 6) + 200000)
+	encrypted, pwd = crypt.encrypt(msg, randint(len(msg) * 3, (len(msg) * 3) + 1000000))
 
 	x=0
-	seed = ''.join(pwd.split('.'))
-	random.seed(seed)
+	sed = ''.join(pwd.split('.'))
+	seed(sed)
 	if (len(encrypted) % 3 == 0):
 		encrypted+=chr(0)
 		encrypted+=chr(0)
@@ -53,10 +52,10 @@ def encrypt():
 			b = 0
 		else: 
 			b = ord(encrypted[x+2]) 
-		i, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
+		i, y = randint(0, im.size[0]-1), randint(0, im.size[1]-1)
 		while (i, y) in numArray:
-			i = random.randint(0, im.size[0]-1)
-			y = random.randint(0, im.size[1]-1)
+			i = randint(0, im.size[0]-1)
+			y = randint(0, im.size[1]-1)
 		numArray.append((i, y))
 		pix[i, y] = (r, g, b)
 		x+=3
@@ -67,18 +66,18 @@ def encrypt():
 
 def decrypt():
 	pwd = args.password
-	seed = ''.join(pwd.split('.'))
+	sed = ''.join(pwd.split('.'))
 	numArray = []
-	random.seed(seed)
+	seed(sed)
 	im = Image.open(args.image)
 	pix = im.load()
 	encrypted = ""
 	notdone = True
 	while notdone:
-		x, y = random.randint(0, im.size[0]-1), random.randint(0, im.size[1]-1)
+		x, y = randint(0, im.size[0]-1), randint(0, im.size[1]-1)
 		while (x, y) in numArray:
-			x = random.randint(0, im.size[0]-1)
-			y = random.randint(0, im.size[1]-1)
+			x = randint(0, im.size[0]-1)
+			y = randint(0, im.size[1]-1)
 		numArray.append((x, y))
 		for i in range(0, 3):
 			if (pix[x, y][i] != 0):
