@@ -23,8 +23,8 @@ args = parser.parse_args()
 crypt = Encrypter()
 
 def encrypt():
-	im = Image.open("telescope.jpg")
-#	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(randint(0, 5))+".jpg")
+#	im = Image.open("telescope.jpg")
+	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(randint(0, 5))+".jpg")
 	pix = im.load()
 	numArray = []
 
