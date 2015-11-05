@@ -23,7 +23,8 @@ args = parser.parse_args()
 crypt = Encrypter()
 
 def encrypt():
-	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(randint(0, 5))+".jpg")
+	im = Image.open("telescope.jpg")
+#	im = Image.open("/usr/local/bin/pic-encrypt-images/"+str(randint(0, 5))+".jpg")
 	pix = im.load()
 	numArray = []
 
@@ -31,7 +32,9 @@ def encrypt():
 		msg = open(args.message).read()
 	else:
 		msg = args.message
-	encrypted, pwd = crypt.encrypt(msg, randint(len(msg) * 3, (len(msg) * 3) + 1000000))
+	iters = randint(len(msg) * 3, (len(msg) * 3) + 1000000)
+#	print iters
+	encrypted, pwd = crypt.encrypt(msg, iters)
 
 	x=0
 	sed = ''.join(pwd.split('.'))
@@ -40,15 +43,19 @@ def encrypt():
 		encrypted+=chr(0)
 		encrypted+=chr(0)
 		encrypted+=chr(0)
+	todo = len(encrypted) / 3.0
+	bigness = im.size[0] * im.size[1]
+	eRuns = (1.0/(1 - (1.0/bigness))) * (todo/2.0) * todo
+	print "Estimated time for steganography: " + str(eRuns * (1.95e-06)) + "s"
 	while (x < len(encrypted)):
 		r = ord(encrypted[x])
 		if (x+1 >= len(encrypted)):
-			print "zero"
+#			print "zero"
 			g = 0
 		else: 
 			g = ord(encrypted[x+1])
 		if (x+2 >= len(encrypted)):
-			print "zero"
+#			print "zero"
 			b = 0
 		else: 
 			b = ord(encrypted[x+2]) 

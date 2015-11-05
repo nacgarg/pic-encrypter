@@ -10,6 +10,7 @@ class Encrypter():
 		pass
 
 	def decrypt(self, string, pwd):
+		print pwd
 		pwd = pwd.split('.')
 		iters = int(pwd[0], 16) / 3
 		p = int(pwd[1], 16) / 7
@@ -23,6 +24,7 @@ class Encrypter():
 		return ''.join(unEnc)
 
 	def encrypt(self, string, pwd):
+		print pwd
 		info = ''
 		for char in string:
 			info += bin(int(hexlify(char), 16))[2:].zfill(7)
@@ -36,26 +38,24 @@ class Encrypter():
 		return ''.join(eInfo), code #Returns encrypted, password
 
 	def _doTuring(self, data, iters):
+		print "Expected seconds for encryption: " + str(iters/144689)
 		tape = copy(data)
 		place = random.randint(0, len(tape) - 1)
 		state = '1'
 		for i in range(iters):
 			if state == '1' and tape[place] == '1':
 				tape[place] = '0'
-				place += 1
 			elif state == '1'and tape[place] == '0':
 				tape[place] = '1'
-				place += 1
 				state = '0'
-			elif state == '0' and tape[place] == '1':
-				state = '1'
-				place += 1
-			elif state == '0' and tape[place] == '0':
-				place += 1
-			if place >= len(tape):
-				place -= len(tape)
-			if place <= -1:
-				place += len(tape)
+			else: 
+				state = tape[place] # This is the new solution
+#			elif state == '0' and tape[place] == '1':
+#				state = '1'
+#			elif state == '0' and tape[place] == '0':
+				# Nothing here
+			place += 1
+			place -= len(tape) * (place == len(tape))
 			print('.'.rjust((60 * i) / iters))
 			sys.stdout.write("\033[F")
 		tape = ''.join(tape)
@@ -64,11 +64,12 @@ class Encrypter():
 		return [nData, place, state]
 
 	def _unTuring(self, t, st, pl, n):
+		print "Expected seconds for decryption: " + str(n/144689)
+		print n
 		tp = copy(t)
 		for x in range(n):
 			pl -= 1
-			if pl == -1:
-				pl += len(tp)
+			pl += len(tp) * (pl == -1)
 			if st == '1' and tp[pl] == '1':
 				st = '0'
 			elif st == '1' and tp[pl] == '0':
