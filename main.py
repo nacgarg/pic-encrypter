@@ -45,7 +45,7 @@ def encrypt():
 		encrypted+=chr(0)
 	todo = len(encrypted) / 3.0
 	bigness = im.size[0] * im.size[1]
-	eRuns = (1.0/(1 - (1.0/bigness))) * (todo/2.0) * todo
+	eRuns = (2.0/(1 - ((todo / 2.0)/bigness))) * todo
 	print "Estimated time for steganography: " + str(eRuns * (1.95e-06)) + "s"
 	while (x < len(encrypted)):
 		r = ord(encrypted[x])
